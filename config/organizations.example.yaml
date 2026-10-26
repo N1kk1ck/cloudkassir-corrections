@@ -1,0 +1,22 @@
+# Add arbitrary stable IDs under organizations. No code changes are needed.
+organizations:
+  example_shop:
+    name: "Демонстрационная организация"
+    demo: true
+    fiscal_confirmed: false
+    credentials:
+      public_id_env: "CLOUDKASSIR_SHOP_PUBLIC_ID"
+      api_secret_env: "CLOUDKASSIR_SHOP_API_SECRET"
+      # Alternatively use public_id and api_secret in the ignored local file.
+    fiscal:
+      organization_inn: "0000000000"
+      taxation_system: 1
+      vat: null
+      item_payment_object: 1
+      ffd_version: "1.2"
+      correction_date: "2026-01-01"
+      correction_number: "DEMO-001"
+      payment_place: "https://example.com"
+      payment_address: "https://example.com"
+      russia_time_zone: 2
+      cashier_name: ""

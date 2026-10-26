@@ -1,0 +1,30 @@
+# Keys on the left are standard fields; values are source column headers.
+# sheet is optional when an XLSX has exactly one visible worksheet.
+receipts:
+  sheet: "Чеки"
+  header_row: 1
+  columns:
+    entity_id: "Организация"
+    receipt_id: "Идентификатор чека"
+    order_id: "Заказ"
+    receipt_type: "Тип чека"
+    amount: "Сумма"
+    currency: "Валюта"
+    status: "Статус"
+    email: "Email"
+  values:
+    receipt_type:
+      "Оплата": "income"
+      "Возврат": "income_return"
+    status:
+      "Завершена": "completed"
+items:
+  sheet: "Состав"
+  columns:
+    entity_id: "Организация"
+    order_id: "Заказ"
+    line_id: "Строка"
+    name: "Наименование"
+    quantity: "Количество"
+    price: "Цена"
+    amount: "Сумма"
