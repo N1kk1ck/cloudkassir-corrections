@@ -1,0 +1,4 @@
+entity_id,receipt_id,order_id,receipt_type,amount,currency,status,email,phone,items_confirmed
+example_shop,demo-payment-001,order-001,income,250.00,RUB,completed,buyer@example.com,,
+example_shop,demo-return-002,order-002,income_return,100.00,RUB,completed,buyer@example.com,,true
+example_shop,demo-review-003,order-003,income,90.00,RUB,completed,buyer@example.com,,

@@ -1,0 +1,5 @@
+entity_id,order_id,line_id,name,quantity,price,amount,object
+example_shop,order-001,1,Демонстрационный товар,2,100.00,200.00,1
+example_shop,order-001,2,Доставка,1,50.00,50.00,4
+example_shop,order-002,1,Возвращаемый товар,1,100.00,100.00,1
+example_shop,order-003,1,Позиция для проверки расхождения,1,100.00,100.00,1
