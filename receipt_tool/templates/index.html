@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudKassir — чеки коррекции</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+<main class="shell">
+  <header>
+    <p class="eyebrow">Локальная подготовка</p>
+    <h1>Чеки коррекции</h1>
+    <p class="lead">Любое количество организаций. Загрузите их настройки, список нужных чеков и состав заказов. Проверка работает без обращений к API.</p>
+  </header>
+  {% for message in get_flashed_messages() %}
+  <p class="card warn" role="alert">{{ message }}</p>
+  {% endfor %}
+  <section class="card">
+    <h2>Подготовить и проверить</h2>
+    <p>Для первого знакомства выберите файлы из папки examples. Настройки с доступами сохраняются только в локальной папке этого приложения.</p>
+    <form action="{{ url_for('prepare_files') }}" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="csrf" value="{{ csrf }}">
+      <label>Организации и реквизиты (YAML)<input name="config" type="file" accept=".yaml,.yml" required></label>
+      <label>Список чеков (CSV/XLSX)<input name="receipts" type="file" accept=".csv,.xlsx" required></label>
+      <label>Состав заказов (CSV/XLSX)<input name="items" type="file" accept=".csv,.xlsx" required></label>
+      <label>Соответствие колонок (YAML, необязательно)<input name="mapping" type="file" accept=".yaml,.yml"></label>
+      <button type="submit">Проверить и создать предпросмотр</button>
+    </form>
+  </section>
+  {% if summary %}
+  <section class="card" aria-live="polite">
+    <h2>Результат проверки</h2>
+    <div class="grid">
+      <p>Всего чеков: <strong>{{ summary.receipts_total }}</strong></p>
+      <p>Готово: <strong>{{ summary.ready }}</strong></p>
+      <p>Нужна проверка: <strong>{{ summary.review }}</strong></p>
+      <p>Неиспользованных строк состава: <strong>{{ summary.unused_item_rows }}</strong></p>
+    </div>
+    <div class="actions">
+      <a class="button secondary" href="{{ url_for('download', name='ready.csv') }}">Готовые чеки</a>
+      <a class="button secondary" href="{{ url_for('download', name='review.csv') }}">Причины проверки</a>
+      <a class="button secondary" href="{{ url_for('download', name='payload_preview.jsonl') }}">Предпросмотр JSONL</a>
+    </div>
+    <p>Реальные чеки не отправлялись. Предпросмотр может содержать контакты покупателей и реквизиты; храните его вместе с рабочими данными.</p>
+  </section>
+  {% endif %}
+  <section class="card">
+    <h2>Формат файлов</h2>
+    <p>Чеки: entity_id, receipt_id, order_id, receipt_type, amount, currency, status и email или phone.</p>
+    <p>Состав: entity_id, order_id, line_id, name, quantity, price, amount. Если на один заказ приходится несколько чеков, укажите receipt_id каждой позиции.</p>
+    <p>Скидки уже должны быть учтены в суммах позиций. Доставка — отдельная строка. Подробности и примеры — в README и docs/input-format.md.</p>
+  </section>
+</main>
+</body>
+</html>
